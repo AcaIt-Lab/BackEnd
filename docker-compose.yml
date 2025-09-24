@@ -1,0 +1,41 @@
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    env_file:
+      - ./data/mysql/env.mysql
+    restart: always
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+    volumes:
+      - acait_data:/var/lib/mysql
+      - ./data/mysql/schema-mysql.sql:/docker-entrypoint-initdb.d/schema-mysql.sql
+    networks:
+      - acait
+
+  api:
+    build:
+      context: Acait
+      dockerfile: Dockerfile
+    container_name: api
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: always
+    environment:
+      ACTIVE_PROFILE: prod
+    ports:
+      - "8080:8080"
+    networks:
+      - acait
+
+volumes:
+  acait_data:
+
+networks:
+  acait:
+    driver: bridge
