@@ -12,7 +12,6 @@ RUN chmod +x ./gradlew
 
 RUN ./gradlew bootJar
 FROM amazoncorretto:17
-ARG MODULE_NAME
 
 COPY --from=builder /build/libs/*.jar app.jar
 
