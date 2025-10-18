@@ -1,4 +1,4 @@
-package com.acait.model.type;
+package com.acait.domain.type;
 
 import lombok.Getter;
 

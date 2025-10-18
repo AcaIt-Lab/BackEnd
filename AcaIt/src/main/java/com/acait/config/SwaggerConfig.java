@@ -1,7 +1,7 @@
 package com.acait.config;
 
 
-import com.acait.model.type.TokenType;
+import com.acait.domain.type.TokenType;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
